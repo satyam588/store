@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<div th:include="fragments::header"></div>
+<div class="container relative overflow-x-auto mx-auto my-10">
+    <div class="mx-auto w-1/2 p-10">
+        <h1 class="text-2xl font-bold dark:text-white mt-5 mb-5">Add New User</h1>
+        <form method="post" enctype="multipart/form-data" th:object="${userDto}">
+            <div class="mb-5">
+                <label for="fname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                    Name</label>
+                <input th:field="${userDto.first_name}"
+                       type="text" id="fname"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="First Name"/>
+
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('first_name')}" th:errorclass="text-red-600"
+                   th:errors="${userDto.first_name}"></p>
+            </div>
+
+            <div class="relative z-0 w-full mb-5 group">
+                <label for="lname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                    Name</label>
+                <input th:field="${userDto.last_name}"
+                       type="text"
+                       id="lname"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Last Name"/>
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('last_name')}" th:errorclass="text-red-600"
+                   th:errors="${userDto.last_name}"></p>
+            </div>
+
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-5 group">
+                    <label for="email"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <input th:field="${userDto.email}"
+                           type="email"
+                           id="email"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           placeholder="Email"/>
+                    <p class="mt-2 text-sm" th:if="${#fields.hasErrors('email')}" th:errorclass="text-red-600"
+                       th:errors="${userDto.email}"></p>
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                    <label for="gender"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                    <select th:field="${userDto.gender}"
+                            id="gender"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <p class="mt-2 text-sm" th:if="${#fields.hasErrors('gender')}" th:errorclass="text-red-600"
+                       th:errors="${userDto.gender}"></p>
+                </div>
+            </div>
+
+            <div class="relative z-0 w-full mb-5 group">
+                <label for="country"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                <select th:field="${userDto.country}"
+                        id="country"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                    <option value="">Select Country</option>
+                    <option value="India">India</option>
+                    <option value="Germany">Germany</option>
+                    <option value="USA">USA</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Australia">Australia</option>
+                </select>
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('country')}" th:errorclass="text-red-600"
+                   th:errors="${userDto.country}"></p>
+            </div>
+
+            <div class="relative z-0 w-full mb-5 group">
+                <label for="bio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bio</label>
+                <textarea
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        id="bio"
+                        placeholder="Add bio"
+                        th:field="${userDto.bio}"></textarea>
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('bio')}" th:errorclass="text-red-600"
+                   th:errors="${userDto.bio}"></p>
+            </div>
+
+            <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Add User
+            </button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

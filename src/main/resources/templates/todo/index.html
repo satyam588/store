@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:tr="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>All Todos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<div th:insert="fragments::header"></div>
+
+<div class="container relative overflow-x-auto mx-auto my-10">
+    <div class="my-5 px-5 flex justify-between">
+        <div>
+            <a th:href="@{'todos/add'}"
+               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Add Todo
+            </a>
+        </div>
+
+        <div>
+            <select id="filter"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="">Add Filter</option>
+                <option value="a-z">Title: A-Z</option>
+                <option value="z-a">Title: Z-A</option>
+                <option value="new">Newest</option>
+                <option value="old">Oldest</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-4 grid-sm-cols-3 grid-xs-cols-2 gap-4">
+        <div th:each="todo : ${todos}">
+            <div class="relative min-h-60 block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                <a th:href="@{'/todos/details?id=' + ${todo.id}}"
+                   class="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:text-blue-600"
+                   th:text="${todo.title}"></a>
+                <p class="font-normal text-gray-700 dark:text-gray-400"
+                   th:text="${todo.description}"></p>
+
+                <p class="font-medium text-green-600 text-right mt-3"
+                   th:text="${todo.due_date.toString.substring(0,10)}"></p>
+                <a th:href="@{'/todos/edit?id=' + ${todo.id}}"
+                   class="absolute right-5 bottom-5 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2">
+                    <svg class="w-4 h-4 text-white-800" aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                         viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                              d="M14 4.182A4.136 4.136 0 0 1 16.9 3c1.087 0 2.13.425 2.899 1.182A4.01 4.01 0 0 1 21 7.037c0 1.068-.43 2.092-1.194 2.849L18.5 11.214l-5.8-5.71 1.287-1.31.012-.012Zm-2.717 2.763L6.186 12.13l2.175 2.141 5.063-5.218-2.141-2.108Zm-6.25 6.886-1.98 5.849a.992.992 0 0 0 .245 1.026 1.03 1.03 0 0 0 1.043.242L10.282 19l-5.25-5.168Zm6.954 4.01 5.096-5.186-2.218-2.183-5.063 5.218 2.185 2.15Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span class="sr-only">Icon description</span>
+                </a>
+
+                <a th:href="@{'/todos/delete?id=' + ${todo.id}}"
+                   class="absolute right-13 bottom-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2">
+                    <svg class="w-4 h-4 text-white-800 dark:text-white" aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                    </svg>
+                    <span class="sr-only">Icon description</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    document.querySelector('#filter').addEventListener('change',function(){
+        let filter = document.querySelector('#filter').value = this.value;
+        document.location = "/todos/sort?key=" + filter;
+    });
+</script>
+</body>
+</html>

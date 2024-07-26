@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Register New User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<div th:include="fragments::header"></div>
+
+<div class="container relative overflow-x-auto mx-auto my-10">
+    <div class="mx-auto w-1/2 p-10 bg-gray-100 rounded-lg">
+        <h1 class="text-2xl font-bold dark:text-white mb-5">Register New User</h1>
+        <h4 class="text-lg font-bold my-2" th:text="${userSession}" th:if="${userSession}"></h4>
+        <form method="post" th:object="${registerDto}">
+            <div class="mb-5">
+                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
+                    Name</label>
+                <input th:field="${registerDto.userName}"
+                       type="text" id="username"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="User Name"/>
+
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('userName')}" th:errorclass="text-red-600"
+                   th:errors="${registerDto.userName}"></p>
+            </div>
+
+            <div class="mb-5">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input th:field="${registerDto.email}"
+                       type="text" id="email"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Email"/>
+
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('email')}" th:errorclass="text-red-600"
+                   th:errors="${registerDto.email}"></p>
+            </div>
+
+            <div class="mb-5">
+                <label for="password"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                <input th:field="${registerDto.password}"
+                       type="password" id="password"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Password"/>
+
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('password')}" th:errorclass="text-red-600"
+                   th:errors="${registerDto.password}"></p>
+            </div>
+
+            <div class="mb-5">
+                <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                    Password</label>
+                <input th:field="${registerDto.confirmPassword}"
+                       type="password" id="confirm-password"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Confirm Password"/>
+
+                <p class="mt-2 text-sm" th:if="${#fields.hasErrors('confirmPassword')}" th:errorclass="text-red-600"
+                   th:errors="${registerDto.confirmPassword}"></p>
+            </div>
+
+            <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Register Now
+            </button>
+
+            <p class="pt-4 text-sm text-gray-600">Already have an account ? <a href="/login"
+                                                                               class="hover:text-blue-600">Login
+                here</a></p>
+        </form>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+
+</body>
+</html>
